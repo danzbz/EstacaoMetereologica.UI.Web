@@ -1,0 +1,66 @@
+﻿@model DadosViewMOD
+
+@{
+    ViewBag.Title = "Dados";
+}
+
+<div class="row py-4 px-5">
+    <div class="col-12 area-info p-3">
+        <h1>Tabela de Estações</h1>
+        <p>
+            Estas são as estações existentes em nosso sistema.<br />
+            Caso deseje baixar os dados de alguma delas, por favor clique no botão “Baixar” na coluna Ação, caso queira apenas consulta-los clique no botão “Consultar”.
+        </p>
+    </div>
+    <div class="col-12 py-3">
+        <div class="table-responsive">
+            <table class="table">
+                <thead style="background-color: #4E75FF">
+                    <tr class="text-white">
+                        <th scope="col">ID da Estação</th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Latitude</th>
+                        <th scope="col">Longitude</th>
+                        <th scope="col">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var estacao in Model.ListaEstacao)
+                    {
+                        <tr>
+                            <th scope="row">@estacao.TxIdTela</th>
+                            <td>@estacao.TxCidade</td>
+                            <td>@estacao.TxEstado</td>
+                            <td>
+                                @if (estacao.Qtd >= 1)
+                                {
+                                    <span class="text-white p-2" style="background-color: #6574FF; border-radius: 5px;"> Ativa</span>
+                                }
+                                else
+                                {
+                                    <span class="text-white p-2" style="background-color: red; border-radius: 5px;"> Inativa</span>
+                                }
+                            </td>
+                            <td>@estacao.TxLatitude</td>
+                            <td>@estacao.TxLongitude</td>
+                            <td><a class="btn btn-primary" style="background-color: #45599F" href=@String.Format("/Home/Consultar?CdEstacao={0}", estacao.CdEstacao)>Consultar</a> <a href=@String.Format("/Home/ExportaExcel?CdEstacao={0}", estacao.CdEstacao) class="btn btn-primary" style="background-color: #4EBFFF;">Baixar</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 area-info p-3">
+        <h1>Legenda</h1>
+        <p>
+            <label>ID da Estação</label>: código único de identificação da respectiva estação em nosso sistema.<br />
+            <label>Cidade</label>: Cidade em que a estação está localizada.<br />
+            <label>Estado</label>: Estado em que a estação está localizada.<br />
+            <label>Status</label>: Identifica se a estação está operando e coletando dados normalmente. (mesmo com o Status “Desativada” seus dados já coletados no passado podem ser baixados ou consultados).<br />
+            <label>Latitude</label>: Latitude em que a estação está localizada.<br />
+            <label>Longitude</label>: Longitude em que a estação está localizada.<br />
+        </p>
+    </div>
+</div>

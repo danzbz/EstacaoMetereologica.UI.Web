@@ -1,0 +1,27 @@
+﻿@model DadosViewMOD
+
+<table class="table">
+    <thead style="background-color: #4E75FF">
+        <tr class="text-white">
+            <th scope="col">Data</th>
+            <th scope="col">Horário</th>
+            <th scope="col">Umidade</th>
+            <th scope="col">Temperatura</th>
+            <th scope="col">Velocidade do Vento</th>
+            <th scope="col">Presença da Chuva</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var leitura in Model.Estacao.ListaLeitura)
+        {
+            <tr>
+                <th scope="row">@leitura.DtCadastro.ToShortDateString()</th>
+                <td>@leitura.DtCadastro.ToString("HH:mm")</td>
+                <td>@leitura.TxUmidade</td>
+                <td>@leitura.TxTemperatura</td>
+                <td>@leitura.TxVento</td>
+                <td>@leitura.AoChuva</td>
+            </tr>
+        }
+    </tbody>
+</table>

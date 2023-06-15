@@ -1,0 +1,86 @@
+﻿@model DadosViewMOD
+
+@{
+    ViewBag.Title = "Dados";
+}
+
+<style>
+    span {
+        background-color: #EDECEC;
+        border-radius: 5px;
+        padding: 5px;
+    }
+</style>
+
+<div class="row py-4 px-5">
+    <div class="col-12 area-info p-3">
+        <h1 class="pb-3">Identificação da Estação</h1>
+        <div class="row">
+            <div class="col-6 pb-3">
+                <label>ID:</label>  <span> @Model.Estacao.TxIdTela </span>
+            </div>
+            <div class="col-6 pb-3">
+                @if (Model.Estacao.Qtd >= 1)
+                {
+                    <span class="text-white p-2" style="background-color: #6574FF; border-radius: 5px;"> Ativa</span>
+                }
+                else
+                {
+                    <span class="text-white p-2" style="background-color: red; border-radius: 5px;"> Inativa</span>
+                }
+            </div>
+            <div class="col-6 pb-3">
+                <label>Cidade:</label> <span> @Model.Estacao.TxCidade</span>
+            </div>
+            <div class="col-6 pb-3">
+                <label>Latitude:</label> <span> @Model.Estacao.TxLatitude</span>
+            </div>
+            <div class="col-6 pb-3">
+                <label>Estado:</label> <span> @Model.Estacao.TxEstado</span>
+            </div>
+            <div class="col-6 pb-3">
+                <label>Longitude:</label> <span> @Model.Estacao.TxLongitude</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 py-3">
+        <div class="table-responsive">
+            <table class="table">
+                <thead style="background-color: #4E75FF">
+                    <tr class="text-white">
+                        <th scope="col">Data</th>
+                        <th scope="col">Horário</th>
+                        <th scope="col">Umidade</th>
+                        <th scope="col">Temperatura</th>
+                        <th scope="col">Velocidade do Vento</th>
+                        <th scope="col">Presença da Chuva</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var leitura in Model.Estacao.ListaLeitura)
+                    {
+                        <tr>
+                            <th scope="row">@leitura.DtCadastro.ToShortDateString()</th>
+                            <td>@leitura.DtCadastro.ToString("HH:mm")</td>
+                            <td>@leitura.TxUmidade</td>
+                            <td>@leitura.TxTemperatura</td>
+                            <td>@leitura.TxVento</td>
+                            <td>@leitura.AoChuva</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 area-info p-3">
+        <h1>Legenda</h1>
+        <p>
+            <label>ID da Estação</label>: código único de identificação da respectiva estação em nosso sistema.<br />
+            <label>Cidade</label>: Cidade em que a estação está localizada.<br />
+            <label>Estado</label>: Estado em que a estação está localizada.<br />
+            <label>Status</label>: Identifica se a estação está operando e coletando dados normalmente. (mesmo com o Status “Desativada” seus dados já coletados no passado podem ser baixados ou consultados).<br />
+            <label>Latitude</label>: Latitude em que a estação está localizada.<br />
+            <label>Longitude</label>: Longitude em que a estação está localizada.<br />
+        </p>
+    </div>
+</div>
